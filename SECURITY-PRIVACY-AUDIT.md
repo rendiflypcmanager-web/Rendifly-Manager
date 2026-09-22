@@ -1,5 +1,13 @@
-# Auditoría actual de privacidad, protección de datos, seguridad y documentación  
-## Rendifly Manager — estado posterior a las mejoras de Beta 2
+
+
+# Current Privacy, Data Protection, Security and Documentation Audit
+
+# Auditoría actual de privacidad, protección de datos, seguridad y documentación
+
+**Date of review:** September 21, 2026  
+**Scope:** current implementation of the Rendifly Manager project.  
+**Mode:** read-only audit. No files were modified during this review.  
+**Criterion:** when there is a difference between documentation and code, the actual behavior of the implementation prevails.
 
 **Fecha de revisión:** 21 de septiembre de 2026  
 **Alcance:** implementación actual del proyecto Rendifly Manager.  
@@ -8,33 +16,35 @@
 
 ---
 
-# 1. Resumen del estado actual
+## 1. Current Status Summary
 
-Rendifly Manager funciona actualmente como una aplicación local de Windows.
+## 1. Resumen del estado actual
 
-## Funciones activas
+Rendifly Manager currently functions as a local Windows application.
 
-Actualmente están activas las siguientes funciones:
+### Active Functions
 
-- Monitorización local del equipo.
-- Lectura de CPU, RAM, GPU, almacenamiento y batería.
-- Lectura de procesos activos.
-- Lectura de aplicaciones de inicio.
-- Lectura de controladores y configuraciones de Windows.
-- Lectura de contadores globales de red.
-- Gestión local de preferencias.
-- Almacenamiento de configuración en `%APPDATA%\Rendifly`.
-- Logs locales rotatorios.
-- Historial local de notificaciones.
-- Gestión del inicio automático mediante el registro de Windows.
-- Funciones de limpieza y optimización.
-- Gestión y finalización de procesos.
-- Apertura controlada de configuraciones y sitios externos.
-- Feedback mediante el cliente de correo del usuario o Gmail.
+The following functions are currently active:
 
-## Funciones desactivadas actualmente
+- Local machine monitoring.
+- Reading of CPU, RAM, GPU, storage, and battery.
+- Reading of active processes.
+- Reading of startup applications.
+- Reading of drivers and Windows configurations.
+- Reading of global network counters.
+- Local preference management.
+- Configuration storage in `%APPDATA%\Rendifly`.
+- Rotating local logs.
+- Local notification history.
+- Autostart management via the Windows registry.
+- Cleaning and optimization functions.
+- Process management and termination.
+- Controlled opening of configurations and external sites.
+- Feedback via the user's mail client or Gmail.
 
-La IA externa está desactivada mediante:
+### Currently Disabled Functions
+
+External AI is disabled via:
 
 `feature_flags.py`
 
@@ -42,48 +52,50 @@ La IA externa está desactivada mediante:
 EXTERNAL_AI_ENABLED = False
 ```
 
-Mientras esta bandera permanezca desactivada, el flujo normal no debería:
+While this flag remains disabled, the normal flow should not:
 
-- Validar API keys externas.
-- Conectarse a Gemini.
-- Conectarse a proveedores compatibles con OpenAI.
-- Enviar preguntas del usuario a terceros.
-- Enviar contexto del equipo a proveedores de IA.
-- Ejecutar búsquedas web automáticas mediante DuckDuckGo.
+- Validate external API keys.
+- Connect to Gemini.
+- Connect to OpenAI-compatible providers.
+- Send user questions to third parties.
+- Send machine context to AI providers.
+- Perform automatic web searches via DuckDuckGo.
 
-## Funciones preparadas para el futuro
+### Functions Prepared for the Future
 
-El código contiene infraestructura para:
+The code contains infrastructure for:
 
 - Google Gemini.
-- Proveedores compatibles con OpenAI.
-- Búsqueda web con DuckDuckGo.
-- Contexto técnico del equipo para el asistente.
-- Validación de endpoints HTTPS.
-- Consentimiento separado para IA.
-- Protección de API keys mediante Windows DPAPI.
+- OpenAI-compatible providers.
+- Web search with DuckDuckGo.
+- Technical machine context for the assistant.
+- HTTPS endpoint validation.
+- Separate AI consent.
+- Protection of API keys via Windows DPAPI.
 
-Estas funciones están preparadas, pero no están disponibles en el flujo normal actual porque la integración externa permanece desactivada.
+These functions are prepared but are not available in the current normal flow because external integration remains disabled.
 
 ---
 
-# 2. Política de privacidad
+## 2. Privacy Policy
 
-## 2.1 Qué hace realmente el código
+## 2. Política de privacidad
 
-La aplicación no utiliza actualmente:
+### 2.1 What the code actually does
 
-- Sistema de cuentas.
-- Backend propio de usuarios.
-- Base de datos remota.
-- Servicio propio de analítica.
-- SDK de publicidad.
-- Servicio propio de telemetría.
-- Servidor HTTP público de Rendifly.
+The application currently does not use:
 
-La aplicación procesa localmente información técnica del equipo y guarda determinados datos en el perfil del usuario.
+- A user account system.
+- A proprietary user backend.
+- A remote database.
+- A proprietary analytics service.
+- An advertising SDK.
+- A proprietary telemetry service.
+- A public Rendifly HTTP server.
 
-La recopilación local se realiza principalmente en:
+The application processes local technical information about the machine and saves certain data in the user's profile.
+
+Local collection is primarily performed in:
 
 - `monitor.py`
 - `metrics.py`
@@ -91,113 +103,115 @@ La recopilación local se realiza principalmente en:
 - `manager.py`
 - `config.py`
 
-La aplicación puede leer información del sistema, mostrarla en la interfaz y utilizarla internamente para recomendaciones y funciones de optimización.
+The application can read system information, display it in the interface, and use it internally for recommendations and optimization functions.
 
-## 2.2 Documentación existente
+### 2.2 Existing Documentation
 
-Actualmente existen:
+The following exist:
 
 - `PRIVACY.md`
 - `TERMS.md`
 - `LICENSE`
 - `THIRD-PARTY-NOTICES.md`
 
-La política de privacidad describe que:
+The privacy policy states that:
 
-- La aplicación funciona principalmente de forma local.
-- Los datos técnicos normalmente permanecen en el equipo.
-- No existe telemetría centralizada activa.
-- La IA externa está desactivada en la versión actual.
-- El feedback puede utilizar proveedores externos de correo.
+- The application functions primarily locally.
+- Technical data typically remains on the machine.
+- There is no active centralized telemetry.
+- External AI is disabled in the current version.
+- Feedback may use external mail providers.
 
-## 2.3 Diferencias entre documentación e implementación
+### 2.3 Differences between documentation and implementation
 
-La documentación coincide con la arquitectura local actual.
+The documentation aligns with the current local architecture.
 
-Sin embargo, `PRIVACY.md` todavía contiene placeholders para:
+However, `PRIVACY.md` still contains placeholders for:
 
-- Nombre del responsable.
-- Correo de privacidad.
-- Fecha de entrada en vigor.
-- Revisión legal.
-- Información específica de jurisdicción.
+- Responsible name.
+- Privacy email.
+- Effective date.
+- Legal review.
+- Specific jurisdiction information.
 
-Por tanto, la documentación es técnicamente coherente, pero todavía no está lista para una distribución pública definitiva.
+Therefore, the documentation is technically consistent but is not yet ready for final public distribution.
 
-## 2.4 Qué falta
+### 2.4 What is missing
 
-Falta completar:
+The following need to be completed:
 
-- Nombre real del responsable.
-- Organización responsable.
-- Correo de privacidad.
-- Fecha de entrada en vigor.
-- Jurisdicción.
-- Política de retención.
-- Derechos del usuario.
-- Procedimiento de acceso.
-- Procedimiento de eliminación.
-- Procedimiento de exportación.
-- Información completa sobre el feedback recibido por correo.
-- Revisión legal para los mercados donde se distribuya la aplicación.
+- Real name of the responsible party.
+- Responsible organization.
+- Privacy email.
+- Effective date.
+- Jurisdiction.
+- Retention policy.
+- User rights.
+- Access procedure.
+- Deletion procedure.
+- Export procedure.
+- Complete information about feedback received by email.
+- Legal review for markets where the application will be distributed.
 
-## 2.5 Riesgos
+### 2.5 Risks
 
-- El usuario no tiene todavía un contacto real para ejercer derechos.
-- La política no define completamente los plazos de retención.
-- La política futura de IA podría quedarse obsoleta si se activa la funcionalidad sin actualizar la documentación.
-- La política no debe publicarse con los placeholders actuales.
+- The user does not yet have a real contact point to exercise rights.
+- The policy does not fully define retention periods.
+- The future AI policy may become outdated if the feature is activated without updating the documentation.
+- The policy must not be published with the current placeholders.
 
-**Prioridad:** Alta antes de la distribución pública.
+**Priority:** High before public distribution.
 
-## 2.6 Solución recomendada
+### 2.6 Recommended solution
 
-Completar `PRIVACY.md` con información real sobre:
+Complete `PRIVACY.md` with real information about:
 
-1. Responsable del tratamiento.
-2. Contacto.
-3. Datos recopilados.
-4. Finalidad.
-5. Base legal, cuando corresponda.
-6. Retención.
-7. Eliminación.
-8. Proveedores externos.
-9. Transferencias internacionales.
-10. Derechos del usuario.
-11. Fecha de vigencia.
-12. Historial de cambios.
+1. Data controller.
+2. Contact details.
+3. Data collected.
+4. Purposes.
+5. Legal basis, where applicable.
+6. Retention.
+7. Deletion.
+8. Third-party providers.
+9. International transfers.
+10. User rights.
+11. Effective date.
+12. Change history.
 
 ---
 
-# 3. EULA, términos de uso y licencia
+## 3. EULA, Terms of Use, and License
 
-## 3.1 Qué hace realmente el código
+## 3. EULA, términos de uso y licencia
 
-La aplicación contiene funciones que pueden:
+### 3.1 What the code actually does
 
-- Consultar hardware.
-- Consultar procesos.
-- Finalizar procesos.
-- Limpiar archivos.
-- Modificar configuraciones de inicio.
-- Consultar y modificar opciones de energía.
-- Consultar configuraciones de Windows.
-- Abrir configuraciones del sistema.
-- Abrir sitios externos autorizados.
-- Gestionar perfiles.
-- Preparar feedback.
-- Configurar proveedores de IA en futuras versiones habilitadas.
+The application contains functions that can:
 
-No existe actualmente un sistema que obligue al usuario a aceptar términos antes de abrir la aplicación o usar sus funciones.
+- Query hardware.
+- Query processes.
+- Terminate processes.
+- Clean files.
+- Modify startup configurations.
+- Query and modify power options.
+- Query Windows configurations.
+- Open system configurations.
+- Open authorized external sites.
+- Manage profiles.
+- Prepare feedback.
+- Configure AI providers in future enabled versions.
 
-## 3.2 Documentación existente
+There is currently no system that obligates the user to accept terms before opening the application or using its functions.
 
-Existe:
+### 3.2 Existing Documentation
+
+The following exist:
 
 - `LICENSE`
 - `TERMS.md`
 
-El instalador referencia ambos documentos mediante:
+The installer references both documents via:
 
 `RendiflyManager.iss`
 
@@ -206,68 +220,70 @@ LicenseFile=..\LICENSE
 InfoBeforeFile=..\TERMS.md
 ```
 
-## 3.3 Coincidencia
+### 3.3 Match
 
-La licencia MIT está presente como archivo distribuible.
+The MIT license is present as a distributable file.
 
-Los términos de uso existen, pero todavía son un borrador porque contienen placeholders para:
+The terms of use exist but are still a draft because they contain placeholders for:
 
-- Propietario.
-- Contacto legal.
-- Fecha.
-- Jurisdicción.
-- Condiciones legales específicas.
+- Owner.
+- Legal contact.
+- Date.
+- Jurisdiction.
+- Specific legal conditions.
 
-## 3.4 Qué falta
+### 3.4 What is missing
 
-Falta completar:
+The following need to be completed:
 
-- Identidad legal del propietario.
-- Contacto legal.
-- Jurisdicción aplicable.
-- Condiciones de la versión Beta.
-- Responsabilidad del usuario al modificar Windows.
-- Condiciones sobre servicios externos.
-- Condiciones sobre IA.
-- Condiciones sobre feedback.
-- Avisos legales de dependencias.
+- Legal identity of the owner.
+- Legal contact.
+- Applicable jurisdiction.
+- Beta version conditions.
+- User responsibility for modifying Windows.
+- Conditions regarding external services.
+- Conditions regarding AI.
+- Conditions regarding feedback.
+- Legal notices for dependencies.
 
-## 3.5 Riesgos
+### 3.5 Risks
 
-- El instalador puede mostrar documentos todavía incompletos.
-- No quedan definidas completamente las responsabilidades sobre limpieza o finalización de procesos.
-- La versión Beta no tiene todavía un marco contractual final.
-- El usuario puede interpretar la licencia MIT como sustituto de los términos de uso, aunque cumplen funciones distintas.
+- The installer may display documents that are still incomplete.
+- Responsibilities for cleaning or terminating processes are not fully defined.
+- The Beta version does not yet have a final contractual framework.
+- The user may interpret the MIT license as a substitute for the terms of use, although they serve different functions.
 
-**Prioridad:** Alta.
+**Priority:** High.
 
-## 3.6 Solución recomendada
+### 3.6 Recommended solution
 
-Completar `TERMS.md`, revisarlo legalmente y verificar que la versión mostrada por el instalador sea la correcta.
+Complete `TERMS.md`, have it legally reviewed, and verify that the version shown by the installer is correct.
 
 ---
 
-# 4. Datos recopilados por la aplicación
+## 4. Data Collected by the Application
 
-## 4.1 Hardware y sistema
+## 4. Datos recopilados por la aplicación
 
-La aplicación puede leer localmente:
+### 4.1 Hardware and system
+
+The application can locally read:
 
 - CPU.
-- Número de núcleos.
-- Número de hilos.
-- Uso de CPU.
-- RAM total.
-- RAM utilizada.
+- Number of cores.
+- Number of threads.
+- CPU usage.
+- Total RAM.
+- RAM used.
 - GPU.
-- Información de `nvidia-smi`, cuando está disponible.
-- Sistema operativo.
-- Tiempo de actividad.
-- Temperaturas.
-- Estado de batería.
-- Capacidad de batería.
+- Information from `nvidia-smi`, when available.
+- Operating system.
+- Up time.
+- Temperatures.
+- Battery status.
+- Battery capacity.
 
-Archivos relacionados:
+Related files:
 
 - `monitor.py`
 - `cpu.py`
@@ -275,521 +291,532 @@ Archivos relacionados:
 - `battery.py`
 - `ram.py`
 
-## 4.2 Almacenamiento
+### 4.2 Storage
 
-La aplicación puede leer:
+The application can read:
 
-- Letras de unidad.
-- Capacidad.
-- Espacio libre.
-- Uso de almacenamiento.
-- Lecturas.
-- Escrituras.
+- Drive letters.
+- Capacity.
+- Free space.
+- Storage usage.
+- Reads.
+- Writes.
 
-Archivos relacionados:
+Related files:
 
 - `storage.py`
 - `monitor.py`
 
-## 4.3 Procesos y software
+### 4.3 Processes and software
 
-La aplicación puede leer:
+The application can read:
 
-- Procesos activos.
-- Nombres de procesos.
-- Consumo de memoria.
-- Estado de procesos.
-- Aplicaciones de inicio.
-- Información de controladores.
-- Algunas configuraciones de Windows.
+- Active processes.
+- Process names.
+- Memory consumption.
+- Process status.
+- Startup applications.
+- Driver information.
+- Some Windows configurations.
 
-Archivos relacionados:
+Related files:
 
 - `manager.py`
 - `startup.py`
 - `drivers.py`
 - `windows_config.py`
 
-## 4.4 Red
+### 4.4 Network
 
-La aplicación puede leer contadores globales agregados:
+The application can read aggregated global counters:
 
-- Bytes enviados.
-- Bytes recibidos.
+- Bytes sent.
+- Bytes received.
 
-No se confirmó que lea:
+It was not confirmed that it reads:
 
-- Contenido de paquetes.
-- Historial de navegación.
-- Dominios visitados.
-- Contenido de comunicaciones.
-- Todas las direcciones de destino.
+- Packet content.
+- Browsing history.
+- Visited domains.
+- Communication content.
+- All destination addresses.
 
-Archivos relacionados:
+Related files:
 
 - `network.py`
 - `metrics.py`
 
-## 4.5 Datos introducidos por el usuario
+### 4.5 User-entered data
 
-La aplicación puede recibir:
+The application can receive:
 
-- Nombre introducido durante el onboarding.
-- Preferencias.
-- Idioma.
-- Tema.
+- Name entered during onboarding.
+- Preferences.
+- Language.
+- Theme.
 - Color.
-- Preferencias de monitorización.
-- Configuración de notificaciones.
-- Configuración del asistente.
-- Texto escrito en feedback.
-- Nombre de una captura seleccionada.
-- Preguntas del asistente.
+- Monitoring preferences.
+- Notification configuration.
+- Assistant configuration.
+- Text written in feedback.
+- Name of a selected screenshot.
+- Assistant questions.
 
-## 4.6 Coincidencia documental
+### 4.6 Documentation match
 
-La documentación describe de forma general la monitorización de CPU, RAM, GPU, disco y batería.
+The documentation generally describes monitoring of CPU, RAM, GPU, disk, and battery.
 
-No enumera de forma completa:
+It does not fully enumerate:
 
-- Procesos.
-- Aplicaciones de inicio.
-- Controladores.
-- Contadores de red.
-- Temperaturas.
-- Consultas a `nvidia-smi`.
-- Todos los datos que formarían parte del contexto de IA si se habilitara.
+- Processes.
+- Startup applications.
+- Drivers.
+- Network counters.
+- Temperatures.
+- Queries to `nvidia-smi`.
+- All data that would be part of the AI context if enabled.
 
-**Prioridad:** Media para el uso local.  
-**Prioridad:** Alta si estos datos se envían a terceros.
+**Priority:** Medium for local use.  
+**Priority:** High if this data is sent to third parties.
 
-## 4.7 Solución recomendada
+### 4.7 Recommended solution
 
-Añadir una tabla formal de inventario:
+Add a formal inventory table:
 
-| Categoría | Datos | Finalidad | Persistencia | Sale del equipo actualmente |
+| Category | Data | Purpose | Persistence | Leaves the machine currently? |
 |---|---|---|---|---|
-| Hardware | CPU, RAM, GPU, batería | Mostrar el estado del equipo | Principalmente memoria | No |
-| Almacenamiento | Capacidad y espacio libre | Mostrar uso del disco | Principalmente memoria | No |
-| Procesos | Nombre y memoria | Gestión y explicación | Memoria y posibles logs | No |
-| Configuración | Preferencias y estado | Personalización | JSON local | No |
-| Feedback | Tipo, detalle y texto | Soporte | Cliente de correo | Solo si el usuario envía |
-| IA externa | Pregunta y contexto técnico | Respuesta externa | Según proveedor | Desactivado actualmente |
+| Hardware | CPU, RAM, GPU, battery | Display machine status | Mainly memory | No |
+| Storage | Capacity and free space | Display disk usage | Mainly memory | No |
+| Processes | Name and memory | Management and explanation | Memory and possible logs | No |
+| Configuration | Preferences and status | Personalization | Local JSON | No |
+| Feedback | Type, detail, and text | Support | Mail client | Only if the user sends |
+| External AI | Question and technical context | External response | According to provider | Currently disabled |
 
 ---
 
-# 5. Datos almacenados localmente
+## 5. Locally Stored Data
 
-## 5.1 Ubicación
+## 5. Datos almacenados localmente
 
-La aplicación utiliza:
+### 5.1 Location
+
+The application uses:
 
 ```text
 %APPDATA%\Rendifly
 ```
 
-La persistencia se gestiona mediante:
+Persistence is managed via:
 
 - `app.py`
 - `persistence.py`
 
-## 5.2 Archivos identificados
+### 5.2 Identified files
 
-El código utiliza los siguientes archivos:
+The code uses the following files:
 
 - `settings.json`
 - `runtime.json`
 - `notification_history.json`
 - `rendifly.log`
-- Backups rotatorios de los logs.
-- Archivos temporales utilizados para guardado atómico.
+- Rotating log backups.
+- Temporary files used for atomic saves.
 
-## 5.3 Datos almacenados
+### 5.3 Stored data
 
-Puede almacenarse:
+The following may be stored:
 
-- Nombre del usuario.
-- Preferencias.
-- Idioma.
-- Tema.
+- User name.
+- Preferences.
+- Language.
+- Theme.
 - Color.
-- Inicio automático.
-- Inicio minimizado.
-- Preferencias de bandeja.
-- Intervalos de monitorización.
-- Notificaciones.
-- Perfiles.
-- Estado de onboarding.
-- Estado del proveedor de IA.
-- Estado de validación.
-- Consentimiento de IA.
-- API key protegida mediante DPAPI.
-- Historial de notificaciones.
-- Errores y trazas de aplicación.
+- Autostart.
+- Start minimized.
+- Tray preferences.
+- Monitoring intervals.
+- Monitoring history.
+- Notifications.
+- Profiles.
+- Onboarding status.
+- AI provider status.
+- Validation status.
+- AI consent.
+- DPAPI-protected API key.
+- Notification history.
+- Errors and application traces.
 
-## 5.4 Protección de la API key
+### 5.4 API key protection
 
-La API key se protege mediante Windows DPAPI en:
+The API key is protected via Windows DPAPI in:
 
 `config.py`
 
-La API key protegida no se devuelve a la interfaz en:
+The protected API key is not returned to the interface in:
 
 `api.py`
 
-La configuración utiliza escritura temporal y sustitución atómica en:
+The configuration uses temporary writing and atomic substitution in:
 
 `persistence.py`
 
-## 5.5 Eliminación de datos
+### 5.5 Data deletion
 
-Existe una función para borrar datos locales:
+A function exists to clear local data:
 
 `config.py`
 
-También existe una API expuesta:
+An exposed API also exists:
 
 `api.py`
 
-La función intenta eliminar los archivos del directorio de datos y restablecer la configuración en memoria.
+The function attempts to delete files from the data directory and reset in-memory configuration.
 
-## 5.6 Limitaciones
+### 5.6 Limitations
 
-La eliminación local:
+Local deletion:
 
-- No es borrado seguro de bajo nivel.
-- No puede eliminar copias de seguridad externas.
-- No puede eliminar backups del sistema operativo.
-- Puede dejar archivos bloqueados si se produce un error.
-- No establece ACL personalizadas.
-- No cifra todos los logs ni todos los archivos de configuración.
+- Is not low-level secure deletion.
+- Cannot delete external backups.
+- Cannot delete OS backups.
+- May leave files locked if an error occurs.
+- Does not set custom ACLs.
+- Does not encrypt all logs or all configuration files.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 5.7 Solución recomendada
+### 5.7 Recommended solution
 
-Documentar:
+Document:
 
-- Cada archivo.
-- Su finalidad.
-- Retención.
-- Forma de eliminación.
-- Dependencia de DPAPI.
-- Limitaciones de borrado.
-- Comportamiento al desinstalar.
-- Comportamiento al conservar datos durante una actualización.
+- Each file.
+- Its purpose.
+- Retention.
+- Deletion method.
+- DPAPI dependency.
+- Deletion limitations.
+- Behavior on uninstall.
+- Behavior on preserving data during an update.
 
 ---
 
-# 6. Datos enviados a Internet
+## 6. Data Sent to the Internet
 
-## 6.1 Servicios propios
+## 6. Datos enviados a Internet
 
-No se encontró:
+### 6.1 Proprietary services
 
-- Servidor HTTP propio.
-- API central de Rendifly.
-- Base de datos remota.
-- Sistema de cuentas.
-- Servicio de analítica.
-- Servicio propio de telemetría.
+No proprietary server was found:
 
-## 6.2 Destinos externos presentes en el código
+- No Rendifly HTTP server.
+- No central Rendifly API.
+- No remote database.
+- No user account system.
+- No analytics service.
+- No proprietary telemetry service.
 
-El código contiene referencias a:
+### 6.2 External destinations present in the code
+
+The code contains references to:
 
 - Google Gemini.
-- Proveedores compatibles con OpenAI.
+- OpenAI-compatible providers.
 - DuckDuckGo HTML.
 - Gmail.
-- Cliente de correo mediante `mailto:`.
-- Sitios oficiales de Microsoft.
-- Sitios de fabricantes.
-- URIs de configuración de Windows.
+- Mail client via `mailto:`.
+- Official Microsoft sites.
+- Manufacturer sites.
+- Windows configuration URIs.
 
-Archivos relacionados:
+Related files:
 
 - `provider.py`
 - `gemini_client.py`
 - `openai_client.py`
 - `api.py`
 
-## 6.3 Estado actual de la IA
+### 6.3 Current AI status
 
-La integración externa está bloqueada por:
+External integration is blocked by:
 
 `feature_flags.py`
 
-Cuando está desactivada, las funciones de configuración y validación responden con un estado equivalente a `coming_soon`.
+When disabled, the configuration and validation functions return a `coming_soon` equivalent status.
 
-Actualmente no debería producirse:
+Currently, the following should not occur:
 
-- Envío de preguntas a Gemini.
-- Envío de preguntas a OpenAI-compatible.
-- Envío de hardware a proveedores externos.
-- Envío de procesos.
-- Búsquedas web automáticas.
+- Sending questions to Gemini.
+- Sending questions to OpenAI-compatible providers.
+- Sending hardware to external providers.
+- Sending processes.
+- Automatic web searches.
 
-## 6.4 Feedback por Internet
+### 6.4 Internet feedback
 
-El feedback no se envía a un servidor propio de Rendifly.
+Feedback is not sent to a Rendifly server.
 
-La aplicación prepara:
+The application prepares:
 
-- Un mensaje `mailto:`.
-- Una composición de Gmail.
+- A `mailto:` message.
+- A Gmail composition.
 
-El usuario debe revisar y enviar manualmente el mensaje.
+The user must review and manually send the message.
 
-## 6.5 Riesgos futuros
+### 6.5 Future risks
 
-Si se activa la IA sin controles adicionales, podrían enviarse:
+If AI is activated without additional controls, the following could be sent:
 
-- Preguntas del usuario.
-- Contexto de hardware.
-- Sistema operativo.
-- Procesos.
+- User questions.
+- Hardware context.
+- Operating system.
+- Processes.
 - RAM.
-- Discos.
-- Batería.
-- Temperaturas.
-- Métricas del equipo.
+- Disks.
+- Battery.
+- Temperatures.
+- Machine metrics.
 
-Aunque el código ya separa validación y consentimiento, antes de activar la función debe verificarse toda la experiencia visual de consentimiento.
+Although the code already separates validation and consent, before activating the function, the entire visual consent experience must be verified.
 
-**Prioridad:** Alta antes de activar IA.  
-**Prioridad:** Media mientras la IA permanezca desactivada.
+**Priority:** High before activating AI.  
+**Priority:** Medium while AI remains disabled.
 
-## 6.6 Solución recomendada
+### 6.6 Recommended solution
 
-Antes de activar la IA:
+Before activating AI:
 
-- Mantenerla desactivada por defecto.
-- Mostrar un aviso específico.
-- Mostrar el proveedor.
-- Mostrar el endpoint.
-- Mostrar el modelo.
-- Mostrar las categorías que se enviarán.
-- Permitir enviar solo la pregunta.
-- Permitir desactivar contexto de procesos.
-- Permitir desactivar contexto de hardware.
-- Permitir desactivar contexto de almacenamiento.
-- Documentar retención.
-- Documentar transferencias internacionales.
-- Documentar uso de datos por los proveedores.
-- Mostrar enlaces a las políticas externas.
+- Keep it disabled by default.
+- Show a specific notice.
+- Show the provider.
+- Show the endpoint.
+- Show the model.
+- Show the categories to be sent.
+- Allow sending only the question.
+- Allow disabling process context.
+- Allow disabling hardware context.
+- Allow disabling storage context.
+- Document retention.
+- Document international transfers.
+- Document data use by providers.
+- Show links to external policies.
 
 ---
 
-# 7. Sistema de feedback
+## 7. Feedback System
 
-## 7.1 Comportamiento real
+## 7. Sistema de feedback
 
-El frontend solicita:
+### 7.1 Actual behavior
 
-- Tipo de problema.
-- Detalle.
-- Descripción.
-- Selección opcional de una captura.
+The frontend requests:
 
-Implementación:
+- Problem type.
+- Detail.
+- Description.
+- Optional screenshot selection.
+
+Implementation:
 
 - `feedback.js`
 - `api.py`
 
-El cuerpo del correo incluye:
+The email body includes:
 
-- Tipo de problema.
-- Detalle.
-- Descripción.
-- Nombre de la captura seleccionada.
+- Problem type.
+- Detail.
+- Description.
+- Name of the selected screenshot.
 
-## 7.2 Capturas
+### 7.2 Screenshots
 
-La captura:
+The screenshot:
 
-- No se lee.
-- No se procesa.
-- No se adjunta automáticamente.
-- No se envía a un servidor.
-- Solo se incluye su nombre en el mensaje.
+- Is not read.
+- Is not processed.
+- Is not automatically attached.
+- Is not sent to a server.
+- Only its name is included in the message.
 
-## 7.3 Envío
+### 7.3 Sending
 
-El usuario puede utilizar:
+The user can use:
 
-- Cliente de correo predeterminado.
+- The default mail client.
 - Gmail.
 
-El usuario debe revisar y enviar manualmente el mensaje.
+The user must review and manually send the message.
 
-## 7.4 Documentación existente
+### 7.4 Existing documentation
 
-La interfaz indica que los comentarios se utilizan para:
+The interface indicates that comments are used for:
 
-- Análisis.
-- Resolución de problemas.
-- Mejora de la experiencia.
+- Analysis.
+- Troubleshooting.
+- Improving the experience.
 
-También recomienda no incluir información personal.
+It also recommends not including personal information.
 
-## 7.5 Diferencias documentales
+### 7.5 Documentation differences
 
-La interfaz no explica claramente:
+The interface does not clearly explain:
 
-- Que se abre una aplicación externa.
-- Que el mensaje no se envía automáticamente.
-- Que la captura no se adjunta.
-- Quién recibe el mensaje.
-- Cuánto tiempo se conserva.
-- Cómo solicitar eliminación.
-- Qué datos deben evitarse.
+- That an external application will open.
+- That the message is not sent automatically.
+- That the screenshot is not attached.
+- Who will receive the message.
+- How long it is retained.
+- How to request deletion.
+- What data should be avoided.
 
-## 7.6 Riesgos
+### 7.6 Risks
 
-El usuario puede incluir accidentalmente:
+The user may accidentally include:
 
-- Contraseñas.
+- Passwords.
 - API keys.
 - Tokens.
-- Rutas locales.
-- Nombres de usuario.
-- Nombres de archivos privados.
-- Información corporativa.
-- Datos personales.
+- Local paths.
+- Usernames.
+- Private file names.
+- Corporate information.
+- Personal data.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 7.7 Solución recomendada
+### 7.7 Recommended solution
 
-Mostrar un aviso como:
+Show a notice such as:
 
-> Se preparará un correo para `rendiflypcmanager@gmail.com`. El mensaje no se enviará automáticamente. La captura seleccionada no se adjunta actualmente; solo se incluirá su nombre. No incluyas contraseñas, tokens, API keys, información personal ni datos confidenciales.
+> A message will be prepared for `rendiflypcmanager@gmail.com`. The message will not be sent automatically. The selected screenshot is not currently attached; only its name will be included. Do not include passwords, tokens, API keys, personal information, or confidential data.
 
 ---
 
-# 8. Logs y diagnósticos
+## 8. Logs and Diagnostics
 
-## 8.1 Comportamiento real
+## 8. Logs y diagnósticos
 
-Los logs se guardan en:
+### 8.1 Actual behavior
+
+Logs are saved to:
 
 ```text
 %APPDATA%\Rendifly\rendifly.log
 ```
 
-La implementación se encuentra en:
+Implementation is in:
 
 `logging_service.py`
 
-Características:
+Characteristics:
 
-- Rotación de logs.
-- Aproximadamente 5 MB por archivo.
-- Hasta tres backups.
-- Registro de errores.
-- Registro de excepciones.
-- Tracebacks completos mediante `exc_info`.
+- Log rotation.
+- Approximately 5 MB per file.
+- Up to three backups.
+- Error logging.
+- Exception logging.
+- Full tracebacks via `exc_info`.
 
-## 8.2 Información que podría aparecer
+### 8.2 Information that may appear
 
-Según el error, los logs podrían incluir:
+Depending on the error, logs may include:
 
-- Rutas locales.
-- Nombres de archivos.
-- Nombres de procesos.
-- Módulos.
+- Local paths.
+- File names.
+- Process names.
+- Modules.
 - Endpoints.
-- Detalles del sistema.
-- Mensajes de bibliotecas externas.
+- System details.
+- Messages from external libraries.
 
-No se observó logging rutinario de:
+No routine logging of the following was observed:
 
-- API keys completas.
-- Prompts completos.
-- Respuestas completas del asistente.
-- Contenido de capturas.
+- Full API keys.
+- Full prompts.
+- Full assistant responses.
+- Screenshot content.
 
-## 8.3 Historial de notificaciones
+### 8.3 Notification history
 
-El historial se gestiona en:
+History is managed in:
 
 `notifications.py`
 
-Puede almacenar:
+It can store:
 
-- Título.
-- Mensaje.
-- Tipo.
-- Icono.
-- Fecha.
-- Estado de lectura.
+- Title.
+- Message.
+- Type.
+- Icon.
+- Date.
+- Read status.
 
-## 8.4 Documentación existente
+### 8.4 Existing documentation
 
-La documentación menciona la ubicación de los logs, pero no define claramente:
+The documentation mentions the log location but does not clearly define:
 
-- Retención temporal.
-- Borrado automático.
-- Contenido exacto.
-- Redacción.
-- Acceso de otros procesos.
-- Diferencia entre logs de desarrollo y producción.
+- Temporal retention.
+- Automatic deletion.
+- Exact content.
+- Redaction.
+- Access from other processes.
+- Difference between development and production logs.
 
-## 8.5 Riesgos
+### 8.5 Risks
 
-La rotación limita el tamaño, pero no establece un periodo temporal de conservación.
+Rotation limits size but does not set a retention period.
 
-Los logs pueden revelar información técnica del equipo a otros procesos que se ejecuten bajo el mismo usuario.
+Logs may reveal technical details of the machine to other processes running under the same user.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 8.6 Solución recomendada
+### 8.6 Recommended solution
 
-- Definir retención por tiempo.
-- Redactar rutas.
-- Redactar datos sensibles.
-- Evitar registrar objetos completos.
-- Añadir eliminación desde la interfaz.
-- Eliminar todos los backups al borrar datos.
-- Añadir pruebas que garanticen que las API keys nunca aparecen en logs.
-- Separar logs de desarrollo y producción.
+- Define time-based retention.
+- Redact paths.
+- Redact sensitive data.
+- Avoid logging complete objects.
+- Add deletion from the interface.
+- Delete all backups when clearing data.
+- Add tests ensuring API keys never appear in logs.
+- Separate development and production logs.
 
 ---
 
-# 9. Configuración del usuario
+## 9. User Configuration
 
-## 9.1 Datos configurables
+## 9. Configuración del usuario
 
-La configuración puede contener:
+### 9.1 Configurable data
 
-- Nombre.
-- Preferencias.
-- Idioma.
-- Tema.
+Configuration may contain:
+
+- Name.
+- Preferences.
+- Language.
+- Theme.
 - Color.
-- Inicio con Windows.
-- Inicio minimizado.
-- Minimizar a la bandeja.
-- Cerrar a la bandeja.
-- Intervalo de monitorización.
-- Historial de monitorización.
-- Notificaciones.
-- Proveedor de IA.
-- Estado `validated`.
-- Estado `allow_ai`.
-- Estado del onboarding.
-- Perfiles.
+- Windows startup.
+- Start minimized.
+- Minimize to tray.
+- Close to tray.
+- Monitoring interval.
+- Monitoring history.
+- Notifications.
+- AI provider.
+- `validated` status.
+- `allow_ai` status.
+- Onboarding status.
+- Profiles.
 - Runtime.
 - `send_diagnostics`.
 
-Evidencia:
+Evidence:
 
 `config.py`
 
-## 9.2 Estado de privacidad
+### 9.2 Privacy status
 
-La configuración inicial establece:
+Initial configuration sets:
 
 ```python
 "allow_ai": False
@@ -797,116 +824,120 @@ La configuración inicial establece:
 "validated": False
 ```
 
-El código separa:
+The code separates:
 
-- Validación técnica del proveedor.
-- Consentimiento para permitir el uso externo.
+- Technical provider validation.
+- Consent for external use.
 
-Esto se implementa en:
+Implemented in:
 
 - `config.py`
 - `api.py`
 
-## 9.3 Riesgos
+### 9.3 Risks
 
-- El usuario puede no distinguir entre configurar una API key y permitir transferencias.
-- `send_diagnostics` existe, pero no se encontró un flujo funcional de envío.
-- Las preferencias pueden sobrevivir a una reinstalación.
-- Los datos pueden permanecer en backups del sistema operativo.
+- The user may not distinguish between configuring an API key and permitting transfers.
+- `send_diagnostics` exists, but no functional sending flow was found.
+- Preferences may survive a reinstall.
+- Data may remain in OS backups.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 9.4 Solución recomendada
+### 9.4 Recommended solution
 
-- Mostrar el estado de cada opción.
-- Mostrar qué datos se almacenan.
-- Mostrar qué datos salen del equipo.
-- Añadir exportación.
-- Añadir eliminación selectiva.
-- Marcar `send_diagnostics` como no disponible mientras no exista su implementación.
-- Informar claramente cuando una opción afecta a transferencias externas.
+- Show the status of each option.
+- Show what data is stored.
+- Show what data leaves the machine.
+- Add export.
+- Add selective deletion.
+- Mark `send_diagnostics` as unavailable while its implementation is missing.
+- Clearly inform when an option affects external transfers.
 
 ---
 
-# 10. Consentimiento y transparencia
+## 10. Consent and Transparency
 
-## 10.1 Controles existentes
+## 10. Consentimiento y transparencia
 
-Actualmente existen:
+### 10.1 Existing controls
 
-- `allow_ai=False` por defecto.
-- Feature flag global desactivada.
-- Función para otorgar consentimiento.
-- Función para revocar consentimiento.
-- Separación entre `validated` y `allow_ai`.
-- Mensaje de funcionalidad futura cuando la IA está desactivada.
-- Feedback iniciado manualmente por el usuario.
+The following currently exist:
 
-## 10.2 Aspectos pendientes
+- `allow_ai=False` by default.
+- Global feature flag disabled.
+- Function to grant consent.
+- Function to revoke consent.
+- Separation between `validated` and `allow_ai`.
+- Future functionality message when AI is disabled.
+- Feedback initiated manually by the user.
 
-No se verificó una pantalla completa que muestre, antes de la primera transferencia:
+### 10.2 Pending aspects
 
-- Proveedor.
+A full screen was not verified that shows, before the first transfer:
+
+- Provider.
 - Endpoint.
-- Modelo.
-- Categorías de datos.
-- Finalidad.
-- Retención.
-- Transferencias internacionales.
-- Enlaces a políticas externas.
-- Mecanismo de revocación.
+- Model.
+- Data categories.
+- Purpose.
+- Retention.
+- International transfers.
+- Links to external policies.
+- Revocation mechanism.
 
-## 10.3 Riesgos
+### 10.3 Risks
 
-La configuración actual es conservadora, pero la transparencia sería insuficiente si la IA se habilitara sin ampliar la interfaz.
+The current configuration is conservative, but transparency would be insufficient if AI were enabled without expanding the interface.
 
-**Prioridad:** Alta antes de activar IA.  
-**Prioridad:** Media mientras permanezca desactivada.
+**Priority:** High before activating AI.  
+**Priority:** Medium while it remains disabled.
 
-## 10.4 Solución recomendada
+### 10.4 Recommended solution
 
-Implementar un flujo que:
+Implement a flow that:
 
-1. Muestre los datos que se enviarían.
-2. Muestre el proveedor.
-3. Muestre el endpoint.
-4. Permita aceptar o cancelar.
-5. Permita seleccionar categorías.
-6. Guarde la versión del aviso aceptado.
-7. Permita revocar el consentimiento.
-8. Muestre el estado de consentimiento en Configuración.
+1. Shows the data that would be sent.
+2. Shows the provider.
+3. Shows the endpoint.
+4. Allows accept or cancel.
+5. Allows category selection.
+6. Saves the accepted version of the notice.
+7. Allows revocation of consent.
+8. Shows consent status in Settings.
 
 ---
 
-# 11. Permisos y acceso al sistema
+## 11. Permissions and System Access
 
-## 11.1 Funciones con acceso al sistema
+## 11. Permisos y acceso al sistema
 
-La aplicación utiliza:
+### 11.1 Functions with system access
+
+The application uses:
 
 - `psutil`.
 - WMI.
-- Registro de Windows.
+- Windows registry.
 - `powercfg`.
-- APIs de procesos.
-- APIs de batería.
-- APIs de hardware.
-- Acceso a archivos temporales.
-- Registro `HKCU`.
-- Funciones de limpieza.
-- Funciones de finalización de procesos.
-- Creación de accesos directos.
-- Instalación en `Program Files`.
+- Process APIs.
+- Battery APIs.
+- Hardware APIs.
+- Temporary file access.
+- `HKCU` registry.
+- Cleaning functions.
+- Process termination functions.
+- Shortcut creation.
+- Installation in `Program Files`.
 
-El inicio automático utiliza:
+Autostart uses:
 
 ```text
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 ```
 
-## 11.2 Instalador
+### 11.2 Installer
 
-El instalador requiere administrador:
+The installer requires administrator:
 
 `RendiflyManager.iss`
 
@@ -914,450 +945,466 @@ El instalador requiere administrador:
 PrivilegesRequired=admin
 ```
 
-No se observó evidencia de que la aplicación principal requiera elevación permanente durante toda su ejecución.
+No evidence was found that the main application requires permanent elevation throughout its execution.
 
-## 11.3 Buenas prácticas presentes
+### 11.3 Good practices present
 
-- La configuración se almacena fuera de `Program Files`.
-- El inicio automático utiliza HKCU.
-- Las llamadas revisadas a procesos utilizan `shell=False`.
-- Las URIs externas están restringidas.
-- No se confirmó un servidor HTTP local.
-- No se confirmó ejecución arbitraria de comandos desde una entrada directa del usuario.
+- Configuration is stored outside `Program Files`.
+- Autostart uses HKCU.
+- Reviewed process calls use `shell=False`.
+- External URIs are restricted.
+- No local HTTP server was confirmed.
+- No arbitrary command execution from direct user input was confirmed.
 
-## 11.4 Riesgos
+### 11.4 Risks
 
-La aplicación puede:
+The application can:
 
-- Finalizar procesos.
-- Cambiar energía.
-- Modificar el registro.
-- Eliminar archivos.
-- Cambiar aplicaciones de inicio.
+- Terminate processes.
+- Change power settings.
+- Modify the registry.
+- Delete files.
+- Change startup applications.
 
-El usuario necesita información clara antes de ejecutar acciones con efectos persistentes o destructivos.
+The user needs clear information before performing actions with persistent or destructive effects.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 11.5 Solución recomendada
+### 11.5 Recommended solution
 
-Documentar:
+Document:
 
-- Qué permisos necesita cada función.
-- Qué acciones requieren administrador.
-- Qué acciones son reversibles.
-- Qué procesos pueden finalizarse.
-- Qué archivos pueden eliminarse.
-- Qué cambios del registro se realizan.
-- Cómo deshacer cada cambio.
-- Qué funciones son opcionales.
+- What permissions each function requires.
+- What actions require administrator.
+- What actions are reversible.
+- What processes can be terminated.
+- What files can be deleted.
+- What registry changes are made.
+- How to undo each change.
+- What functions are optional.
 
 ---
 
-# 12. Seguridad del puente WebView2 y frontend
+## 12. WebView2 Bridge and Frontend Security
 
-## 12.1 Comportamiento real
+## 12. Seguridad del puente WebView2 y frontend
 
-La aplicación expone un puente JavaScript-Python mediante pywebview:
+### 12.1 Actual behavior
+
+The application exposes a JavaScript-Python bridge via pywebview:
 
 `app.py`
 
-El frontend puede invocar métodos nativos relacionados con:
+The frontend can invoke native methods related to:
 
 - Hardware.
-- Procesos.
-- Limpieza.
-- Configuración.
-- Energía.
-- Registro.
-- IA.
+- Processes.
+- Cleaning.
+- Configuration.
+- Power.
+- Registry.
+- AI.
 - Feedback.
-- Apertura de recursos externos.
+- Opening external resources.
 
-## 12.2 Mejoras realizadas
+### 12.2 Improvements made
 
-Se corrigió el renderizado del contenido del asistente en:
+The rendering of assistant content was fixed in:
 
 `assistant.js`
 
-Ahora el contenido se escapa antes de insertarse en HTML.
+Content is now escaped before insertion into HTML.
 
-También se filtran URLs de fuentes y se escapan atributos HTML.
+URL sources are also filtered and HTML attributes escaped.
 
-## 12.3 Riesgos restantes
+### 12.3 Remaining risks
 
-- El puente expone numerosas funciones nativas.
-- La seguridad depende de que solo se cargue contenido local confiable.
-- No se verificó una política CSP completa.
-- La navegación externa debe mantenerse restringida.
-- Las funciones destructivas necesitan confirmación visible.
+- The bridge exposes many native functions.
+- Security depends on loading only trusted local content.
+- A complete CSP was not verified.
+- External navigation must remain restricted.
+- Destructive functions need visible confirmation.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 12.4 Solución recomendada
+### 12.4 Recommended solution
 
-- Aplicar una Content Security Policy estricta.
-- No cargar contenido remoto en la vista principal.
-- Separar APIs destructivas.
-- Confirmar acciones sensibles.
-- Utilizar métodos específicos en vez de una API genérica de URI.
-- Mantener WebView2 actualizado.
-- Reducir la superficie del puente JavaScript-Python.
+- Apply a strict Content Security Policy.
+- Do not load remote content in the main view.
+- Separate destructive APIs.
+- Confirm sensitive actions.
+- Use specific methods instead of a generic URI API.
+- Keep WebView2 updated.
+- Reduce the JavaScript-Python bridge surface.
 
 ---
 
-# 13. Seguridad del instalador
+## 13. Installer Security
 
-## 13.1 Comportamiento real
+## 13. Seguridad del instalador
 
-El instalador utiliza Inno Setup.
+### 13.1 Actual behavior
 
-Características:
+The installer uses Inno Setup.
 
-- Instalación en `Program Files`.
-- Requiere administrador.
-- Puede crear accesos directos.
-- Puede iniciar la aplicación después de instalar.
-- Muestra la licencia.
-- Muestra los términos.
-- Permite conservar o eliminar datos durante la desinstalación.
+Characteristics:
 
-Archivos:
+- Installs in `Program Files`.
+- Requires administrator.
+- Can create shortcuts.
+- Can start the application after installation.
+- Shows the license.
+- Shows the terms.
+- Allows preserving or deleting data on uninstall.
+
+Files:
 
 - `RendiflyManager.iss`
 - `build-installer.ps1`
 
-## 13.2 Firma digital
+### 13.2 Digital signature
 
-El archivo `Rendifly.spec` contiene:
+`Rendifly.spec` contains:
 
 ```python
 codesign_identity=None
 ```
 
-El script de compilación permite firmar mediante variables de entorno, pero la firma no está configurada por defecto.
+The build script allows signing via environment variables, but signing is not configured by default.
 
-No hay evidencia de firma aplicada actualmente a:
+No evidence of signing was applied to:
 
-- Ejecutable.
-- Instalador.
-- Desinstalador.
+- The executable.
+- The installer.
+- The uninstaller.
 
-## 13.3 Hashes
+### 13.3 Hashes
 
-El script genera hashes SHA-256 para:
+The script generates SHA-256 hashes for:
 
-- Instalador.
-- Ejecutable.
+- Installer.
+- Executable.
 
-Esto mejora la verificación de integridad, pero un hash sin firma no garantiza autenticidad.
+This improves integrity verification, but a hash without a signature does not guarantee authenticity.
 
-## 13.4 Artefactos de compilación
+### 13.4 Build artifacts
 
-El árbol contiene múltiples directorios de build y distribución históricos.
+The tree contains multiple historical build and distribution directories.
 
-Esto puede provocar:
+This can cause:
 
-- Confusión entre builds.
-- Empaquetado accidental de artefactos antiguos.
-- Dificultad para verificar qué binario corresponde al código actual.
-- Riesgo de distribuir un ejecutable no validado.
+- Confusion between builds.
+- Accidental packaging of old artifacts.
+- Difficulty verifying which binary corresponds to the current code.
+- Risk of distributing an unvalidated executable.
 
-**Prioridad:** Alta antes de distribución pública.
+**Priority:** High before public distribution.
 
-## 13.5 Limitaciones actuales
+### 13.5 Current limitations
 
-- `ISCC.exe` no está instalado en el entorno revisado.
-- No se generó un nuevo instalador durante esta auditoría.
-- No se verificó una firma Authenticode.
-- Las URLs del propietario, soporte y actualizaciones todavía son placeholders.
-- Los binarios existentes no deben considerarse automáticamente equivalentes al código actual.
+- `ISCC.exe` is not installed in the reviewed environment.
+- A new installer was not generated during this audit.
+- An Authenticode signature was not verified.
+- The owner, support, and update URLs in the installer are still placeholders.
+- Existing binaries should not be automatically considered equivalent to the current code.
 
-## 13.6 Solución recomendada
+### 13.6 Recommended solution
 
-- Usar un directorio limpio para cada release.
-- Limpiar builds anteriores.
-- Firmar ejecutable, instalador y desinstalador.
-- Publicar hashes junto con la firma.
-- Verificar las firmas antes de publicar.
-- Generar un SBOM.
-- Mantener los artefactos de distribución separados del árbol de desarrollo.
+- Use a clean directory for each release.
+- Clean previous builds.
+- Sign the executable, installer, and uninstaller.
+- Publish hashes alongside the signature.
+- Verify signatures before publishing.
+- Generate an SBOM.
+- Keep distribution artifacts separate from the development tree.
 
 ---
 
-# 14. Actualizaciones
+## 14. Updates
 
-## 14.1 Estado real
+## 14. Actualizaciones
 
-No existe actualmente un actualizador automático confirmado.
+### 14.1 Actual status
 
-No se encontró:
+No automatic updater is currently confirmed.
 
-- Comprobación automática de versión.
-- Descarga automática.
-- Instalación silenciosa.
+The following were not found:
+
+- Automatic version check.
+- Automatic download.
+- Silent installation.
 - Rollback.
-- Verificación de firma.
-- Canal beta integrado.
-- Protección contra downgrade.
+- Signature verification.
+- Integrated beta channel.
+- Downgrade protection.
 
-El `AppId` estable del instalador permite que futuras instalaciones se identifiquen como la misma aplicación, pero esto no equivale a un actualizador propio.
+The installer's stable `AppId` allows future installations to be identified as the same application, but this is not equivalent to a proprietary updater.
 
-## 14.2 Documentación
+### 14.2 Documentation
 
-El README describe la conservación de preferencias durante reinstalaciones y actualizaciones, pero no documenta un sistema automático de actualización.
+The README describes preserving preferences during reinstalls and updates, but does not document an automatic update system.
 
-## 14.3 Riesgo
+### 14.3 Risk
 
-No existe un riesgo activo de un updater inseguro porque el updater no está implementado.
+There is no active risk of an insecure updater because the updater is not implemented.
 
-Si se implementa sin controles criptográficos, podría convertirse en una vía de ejecución de código no confiable.
+If implemented without cryptographic controls, it could become a path for executing untrusted code.
 
-**Prioridad:** Media actualmente.  
-**Prioridad:** Alta cuando se implemente.
+**Priority:** Medium currently.  
+**Priority:** High when implemented.
 
-## 14.4 Solución recomendada
+### 14.4 Recommended solution
 
-Diseñar futuras actualizaciones con:
+Design future updates with:
 
 - HTTPS.
-- Manifiesto firmado.
+- Signed manifest.
 - Hashes.
-- Firma Authenticode.
-- Protección contra downgrade.
-- Verificación antes de ejecutar.
+- Authenticode signature.
+- Downgrade protection.
+- Verification before execution.
 - Rollback.
-- Confirmación visible del usuario.
-- Registro de versión instalada.
+- Visible user confirmation.
+- Installed version logging.
 
 ---
 
-# 15. IA externa
+## 15. External AI
 
-## 15.1 Estado actual
+## 15. IA externa
 
-La IA externa está desactivada mediante:
+### 15.1 Current status
+
+External AI is disabled via:
 
 `feature_flags.py`
 
-La API devuelve un estado de funcionalidad futura cuando se intenta configurar o validar el proveedor:
+The API returns a future functionality status when attempting to configure or validate the provider:
 
 `api.py`
 
-## 15.2 Código preparado
+### 15.2 Prepared code
 
-Existe código para:
+Code exists for:
 
 - Gemini.
 - OpenAI-compatible.
-- Búsqueda en DuckDuckGo.
-- Construcción de contexto del equipo.
-- Validación de proveedores.
-- Configuración de modelos.
-- Gestión de API keys.
+- DuckDuckGo search.
+- Machine context construction.
+- Provider validation.
+- Model configuration.
+- API key management.
 
-Archivos:
+Files:
 
 - `gemini_client.py`
 - `openai_client.py`
 - `provider.py`
 - `engine.py`
 
-## 15.3 Protecciones implementadas
+### 15.3 Implemented protections
 
-- La IA está desactivada por defecto.
-- El consentimiento está separado de la validación.
-- Los endpoints deben utilizar HTTPS.
-- Se rechazan hosts locales.
-- Se rechazan IPs privadas.
-- Se rechazan credenciales incrustadas en URLs.
-- La API key se protege mediante DPAPI.
-- La API key no se devuelve al frontend.
-- La búsqueda web no recibe automáticamente el contexto completo del equipo.
-- El contexto técnico ya no se describe como “anonimizado”.
+- AI is disabled by default.
+- Consent is separate from validation.
+- Endpoints must use HTTPS.
+- Local hosts are rejected.
+- Private IPs are rejected.
+- Credentials embedded in URLs are rejected.
+- The API key is protected via DPAPI.
+- The API key is not returned to the frontend.
+- Web search does not automatically receive the full machine context.
+- The technical context is no longer described as "anonymized".
 
-## 15.4 Riesgo
+### 15.4 Risk
 
-El contexto técnico del equipo puede incluir información identificable o sensible aunque no incluya directamente el nombre del usuario.
+The technical machine context may include identifiable or sensitive information even if it does not directly include the user's name.
 
-Por ese motivo, no debe describirse como anonimizado por defecto.
+For this reason, it must not be described as anonymized by default.
 
-**Prioridad:** Alta antes de activar IA.
+**Priority:** High before activating AI.
 
-## 15.5 Solución recomendada
+### 15.5 Recommended solution
 
-Antes de activar la IA:
+Before activating AI:
 
-- Mostrar una vista previa del contexto.
-- Enviar únicamente los campos seleccionados.
-- Desactivar procesos por defecto.
-- Desactivar letras de unidad por defecto.
-- Ofrecer modo “solo pregunta”.
-- Documentar proveedores.
-- Documentar retención.
-- Documentar transferencias internacionales.
-- Mostrar advertencia antes de la primera transferencia.
-- Permitir revocar el consentimiento fácilmente.
+- Show a preview of the context.
+- Send only selected fields.
+- Disable process context by default.
+- Disable drive letters by default.
+- Offer a "question-only" mode.
+- Document providers.
+- Document retention.
+- Document international transfers.
+- Show a warning before the first transfer.
+- Allow easy revocation of consent.
 
 ---
 
-# 16. Dependencias y cadena de suministro
+## 16. Dependencies and Supply Chain
 
-## 16.1 Estado actual
+## 16. Dependencias y cadena de suministro
 
-Existe:
+### 16.1 Current status
+
+The following exists:
 
 `requirements-lock.txt`
 
-Este archivo contiene versiones fijadas del entorno actual de compilación.
+This file contains fixed versions of the current build environment.
 
-También existe:
+Also present:
 
 `requirements.txt`
 
-que mantiene dependencias con restricciones mínimas.
+which maintains dependencies with minimal constraints.
 
-## 16.2 Mejora realizada
+### 16.2 Improvement made
 
-El lockfile permite reproducir con mayor precisión el entorno utilizado para una compilación.
+The lockfile allows more precise reproduction of the environment used for a build.
 
-## 16.3 Limitaciones
+### 16.3 Limitations
 
-El lockfile:
+The lockfile:
 
-- Es un snapshot del entorno actual.
-- Incluye dependencias de desarrollo y construcción.
-- No incluye hashes de paquetes.
-- No equivale a una instalación con `--require-hashes`.
-- No constituye un SBOM formal.
-- No demuestra por sí solo que el binario existente haya sido generado exactamente con esas versiones.
+- Is a snapshot of the current environment.
+- Includes development and build dependencies.
+- Does not include package hashes.
+- Is not equivalent to an installation with `--require-hashes`.
+- Is not a formal SBOM.
+- Does not by itself demonstrate that the existing binary was generated exactly with those versions.
 
-**Prioridad:** Media.
+**Priority:** Medium.
 
-## 16.4 Solución recomendada
+### 16.4 Recommended solution
 
-- Separar dependencias runtime y build.
-- Añadir hashes.
-- Generar SBOM.
-- Ejecutar análisis de vulnerabilidades.
-- Registrar las versiones incluidas en cada release.
-- Mantener un proceso reproducible de compilación.
+- Separate runtime and build dependencies.
+- Add hashes.
+- Generate an SBOM.
+- Run vulnerability analysis.
+- Record versions included in each release.
+- Maintain a reproducible build process.
 
 ---
 
-# 17. Transparencia para el usuario
+## 17. User Transparency
 
-## Estado actual
+## 17. Transparencia para el usuario
 
-La aplicación informa parcialmente sobre:
+### Current status
 
-- Monitorización.
-- Almacenamiento local del nombre.
-- Estado futuro de la IA.
+The application partially informs about:
+
+- Monitoring.
+- Local storage of the name.
+- Future AI status.
 - Feedback.
-- Configuración local.
+- Local configuration.
 
-Todavía debe mejorar la información sobre:
+Information is still needed about:
 
-- Procesos recopilados.
-- Aplicaciones de inicio.
-- Controladores.
-- Contadores globales de red.
+- Collected processes.
+- Startup applications.
+- Drivers.
+- Global network counters.
 - Logs.
-- Retención.
-- Eliminación.
-- Destinatario del feedback.
-- Que las capturas no se adjuntan.
-- Diferencia entre validar una API key y permitir envíos.
-- Proveedores externos.
-- Transferencias internacionales.
+- Retention.
+- Deletion.
+- Feedback recipient.
+- That screenshots are not attached.
+- The difference between validating an API key and permitting sends.
+- External providers.
+- International transfers.
 
-**Prioridad:** Alta antes de distribución pública.
+**Priority:** High before public distribution.
 
-## Solución recomendada
+### Recommended solution
 
-Añadir información visible en:
+Add visible information in:
 
 - Onboarding.
-- Configuración.
-- Página del asistente.
-- Página de feedback.
-- Instalador.
-- Documentación de cada release.
+- Settings.
+- Assistant page.
+- Feedback page.
+- Installer.
+- Documentation for each release.
 
 ---
 
-# 18. Resumen de prioridades
+## 18. Priority Summary
 
-| Prioridad | Área | Estado actual |
+## 18. Resumen de prioridades
+
+| Priority | Area | Current status |
 |---|---|---|
-| Alta | Política de privacidad | Existe, pero contiene placeholders |
-| Alta | EULA y términos | Existe, pero no está finalizado legalmente |
-| Alta | IA externa | Desactivada; requiere consentimiento completo antes de activarse |
-| Alta | Instalador firmado | No configurado por defecto |
-| Alta | Transparencia | Parcial |
-| Media | Logs | Activos y rotatorios, sin retención temporal definida |
-| Media | Eliminación local | Implementada, pero no es borrado seguro |
-| Media | Feedback | Manual y no silencioso, pero con información incompleta |
-| Media | Permisos Windows | Funcionales, pero falta una matriz de permisos |
-| Media | WebView2 | Escape mejorado, pero falta CSP completa |
-| Media | Dependencias | Lockfile presente, faltan hashes y SBOM |
-| Media | Actualizaciones | No existe updater actual |
-| Baja | `send_diagnostics` | Campo presente, pero sin envío funcional confirmado |
+| High | Privacy policy | Exists, but contains placeholders |
+| High | EULA and terms | Exists, but not legally finalized |
+| High | External AI | Disabled; requires full consent before activation |
+| High | Signed installer | Not configured by default |
+| High | Transparency | Partial |
+| Medium | Logs | Active and rotating, no temporal retention defined |
+| Medium | Local deletion | Implemented, but not secure deletion |
+| Medium | Feedback | Manual and non-silent, but with incomplete information |
+| Medium | Windows permissions | Functional, but a permission matrix is missing |
+| Medium | WebView2 | Improved escaping, but complete CSP missing |
+| Medium | Dependencies | Lockfile present, hashes and SBOM missing |
+| Medium | Updates | No updater currently exists |
+| Low | `send_diagnostics` | Field present, but no functional sending confirmed |
 
 ---
 
-# 19. Limitaciones verificadas
+## 19. Verified Limitations
 
-Las siguientes limitaciones continúan presentes:
+## 19. Limitaciones verificadas
 
-1. `PRIVACY.md` contiene placeholders legales.
-2. `TERMS.md` contiene placeholders legales.
-3. Las URLs de propietario, soporte y actualizaciones del instalador no son definitivas.
-4. `ISCC.exe` no está disponible en el entorno revisado.
-5. La firma Authenticode no está configurada por defecto.
-6. `codesign_identity=None` continúa presente en `Rendifly.spec`.
-7. El updater automático no está implementado.
-8. No se verificó una compilación nueva del instalador durante esta auditoría.
-9. No se verificó que los binarios existentes coincidan byte a byte con el código actual.
-10. No se generó un SBOM formal.
-11. El lockfile no usa hashes de paquetes.
-12. No existe una política temporal detallada de retención de logs.
-13. No se confirmó una CSP completa para WebView2.
+The following limitations remain:
+
+1. `PRIVACY.md` contains legal placeholders.
+2. `TERMS.md` contains legal placeholders.
+3. The owner, support, and update URLs in the installer are not final.
+4. `ISCC.exe` is not available in the reviewed environment.
+5. Authenticode signing is not configured by default.
+6. `codesign_identity=None` remains in `Rendifly.spec`.
+7. The automatic updater is not implemented.
+8. A new installer compilation was not verified during this audit.
+9. It was not verified that existing binaries match byte-for-byte the current code.
+10. A formal SBOM was not generated.
+11. The lockfile does not use package hashes.
+12. There is no detailed temporal log retention policy.
+13. A complete CSP for WebView2 was not confirmed.
 
 ---
 
-# 20. Conclusión documental
+## 20. Document Conclusion
 
-El estado actual de Rendifly Manager es el de una aplicación de Windows principalmente local:
+## 20. Conclusión documental
 
-- La monitorización está activa localmente.
-- La configuración se almacena localmente.
-- Los logs se almacenan localmente.
-- El historial de notificaciones se almacena localmente.
-- No se encontró telemetría propia activa.
-- No existe un backend central de Rendifly.
-- El feedback requiere acción manual del usuario.
-- La IA externa está preparada en el código, pero desactivada actualmente.
-- Las API keys se protegen mediante DPAPI cuando la función está habilitada.
-- La validación de proveedores y el consentimiento están separados.
-- Los endpoints externos se validan para exigir HTTPS.
-- El contenido del asistente se escapa antes de insertarse en HTML.
-- El instalador muestra licencia y términos.
-- El script genera hashes SHA-256.
-- La firma Authenticode todavía no está configurada.
-- La documentación legal todavía debe completarse con datos reales del propietario.
-- La versión Beta 2 no está publicada ni subida.
+The current state of Rendifly Manager is that of a mainly local Windows application:
 
-## Estado para Beta 2
+- Monitoring is active locally.
+- Configuration is stored locally.
+- Logs are stored locally.
+- Notification history is stored locally.
+- No proprietary telemetry was found.
+- No central Rendifly backend exists.
+- Feedback requires manual user action.
+- External AI is prepared in the code but currently disabled.
+- API keys are protected via DPAPI when the feature is enabled.
+- Provider validation and consent are separate.
+- External endpoints are validated to require HTTPS.
+- Assistant content is escaped before insertion into HTML.
+- The installer shows the license and terms.
+- The script generates SHA-256 hashes.
+- Authenticode signing is still not configured.
+- Legal documentation still needs to be completed with the real owner's data.
+- Beta 2 is not published or uploaded.
 
-**Mejoras técnicas implementadas localmente:** sí.  
-**Auditoría de privacidad actualizada:** sí.  
-**Documentación legal creada:** sí.  
-**Documentación legal finalizada:** no, contiene placeholders.  
-**Instalador recompilado y verificado:** no.  
-**Instalador firmado:** no.  
-**Beta 2 publicada:** no.  
-**Beta 2 subida:** no.
+### Status for Beta 2
 
-**Task completed:** Informe completo de auditoría actual entregado directamente en el chat, con datos reales de la implementación, evidencia por archivos, diferencias entre código y documentación, estado activo/desactivado/preparado, riesgos, prioridades, soluciones y limitaciones de Beta 2.
+**Technical improvements implemented locally:** Yes.  
+**Updated privacy audit:** Yes.  
+**Legal documentation created:** Yes.  
+**Legal documentation finalized:** No, contains placeholders.  
+**Installer recompiled and verified:** No.  
+**Installer signed:** No.  
+**Beta 2 published:** No.  
+**Beta 2 uploaded:** No.
